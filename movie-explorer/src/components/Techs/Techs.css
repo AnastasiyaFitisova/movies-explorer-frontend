@@ -1,0 +1,120 @@
+.techs {
+  background-color: #F5F5F5;
+}
+
+.about__title_techs {
+  margin-top: 0;
+  padding-top: 100px;
+}
+
+.techs-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.techs__subtitle {
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 58px;
+  text-align: center;
+  letter-spacing: -0.04em;
+  max-width: 600px;
+  margin-top: 90px;
+  margin-bottom: 26px;
+  padding: 0;
+}
+
+.techs__text {
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  letter-spacing: -0.04em;
+  max-width: 460px;
+  margin-bottom: 100px;
+  padding: 0;
+}
+
+.techs__technologies {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+  gap: 10px;
+  margin-bottom: 100px;
+}
+
+.techs__item {
+  width: 90px;
+  height: 60px;
+  background-color: #E8E8E8;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.techs__techs {
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  letter-spacing: -0.04em;
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (max-width: 1023px) {
+  .about__title_techs {
+    padding-top: 90px;
+  }
+  .techs__subtitle {
+    margin-top: 80px;
+    margin-bottom: 22px;
+  }
+  .techs__text {
+    font-size: 12px;
+    line-height: 18px;
+    margin-bottom: 83px;
+  }
+  .techs__technologies {
+    margin-bottom: 90px;
+  }
+  .techs__item {
+    width: 84px;
+    height: 57px;
+  }
+  .techs__techs {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .about__title_techs {
+    padding-top: 70px;
+  }
+  .techs__subtitle {
+    margin-top: 60px;
+    margin-bottom: 24px;
+    font-size: 30px;
+    line-height: 36px;
+  }
+  .techs__text {
+    font-size: 11px;
+    line-height: 16px;
+    margin-bottom: 50px;
+  }
+  .techs__technologies {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 70px;
+    max-width: 178px;
+  }
+}
