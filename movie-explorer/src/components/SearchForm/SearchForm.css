@@ -30,6 +30,12 @@
   border-radius: 8px;
 }
 
+.search-box__input:hover {
+  background: #e0e0e0;
+  cursor: pointer;
+}
+
+
 .search-box__input::placeholder {
   font-family: 'Inter', 'Arial', sans-serif;
   font-style: normal;
@@ -47,10 +53,19 @@
   border: none;
 }
 
+@media screen and (max-width: 1279px) {
+  .search-box__form {
+    max-width: 980px;
+    margin-bottom: 41px;
+  }
+  .search-box__input {
+    max-width: 768px;
+  }
+}
+
 @media screen and (max-width: 1023px) {
   .search-box__form {
     max-width: 768px;
-    width: 100%;
     margin-bottom: 41px;
   }
   .search-box__input {

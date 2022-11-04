@@ -1,5 +1,5 @@
 .menu__toggle {
-  visibility: hidden;
+  display: none;
 }
 
 .menu__btn {
@@ -7,7 +7,7 @@
   align-items: center;
   position: fixed;
   top: 15px;
-  left: 694px;
+  left: 90%;
   width: 44px;
   height: 44px;
   cursor: pointer;
@@ -50,7 +50,7 @@
 @media screen and (max-width: 767px) {
   .menu__btn {
     top: 15px;
-    left: 266px;
+    left: 83%;
     width: 40px;
     height: 43px;
   }

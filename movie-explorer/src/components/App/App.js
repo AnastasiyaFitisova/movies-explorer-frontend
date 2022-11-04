@@ -22,6 +22,8 @@ function App() {
       {location.pathname === "/" || location.pathname === "/movies" || location.pathname === "/saved-movies" || location.pathname === "/profile" ?
       <Header /> : ''}
 
+      <main className="main">
+
       <Switch>
 
         <Route exact path="/">
@@ -53,6 +55,8 @@ function App() {
         </Route>
 
       </Switch>
+    
+    </main>
 
       {location.pathname === "/" || location.pathname === "/movies" || location.pathname === "/saved-movies" ?
       <Footer /> : ''}

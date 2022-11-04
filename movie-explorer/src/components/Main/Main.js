@@ -7,7 +7,7 @@ import AboutMe from '../AboutMe/AboutMe';
 
 function Main() {
   return (
-    <section className="main">
+    <section className="landing">
       <Promo/>
       <AboutProject/>
       <Techs/>

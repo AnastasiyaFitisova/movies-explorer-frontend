@@ -21,47 +21,47 @@ function Header() {
         alt="логотип страницы"
       /></Link>
 
-      <nav className={location.pathname === '/'
-        ? 'header__navigation'
-        : location.pathname === '/movies'
-          ? 'header__navigation header__navigation_place_movies'
-          : location.pathname === '/saved-movies'
-            ? 'header__navigation header__navigation_place_movies'
-            : location.pathname === '/profile'
-              ? 'header__navigation header__navigation_place_movies' : 'header__navigations'}>
-
-        <Route exact path="/">
+      <Route exact path="/">
+        <nav className='header__navigation'>
           <Link to="/signup" className="header__link">Регистрация</Link>
           <Link to="/signin" className="header__button">Войти</Link>
-        </Route>
+        </nav>
+      </Route>
 
-        <Route path="/movies">
+      <Route path="/movies">
+        <nav className='header__movies-navigation'>
           <div className="header__movies-nav">
             <Link to="/movies" className="header__link header__link_place_movie">Фильмы</Link>
             <Link to="/saved-movies" className="header__link header__link_place_movie">Сохраненные фильмы</Link>
           </div>
           <Link to="/profile" className="header__button header__button_place_movie"><img className="header__btn-img" src={HeaderBtn} alt="кнопка аккаунт" /></Link>
-        </Route>
+        </nav>
+        <HeaderMenu />
+      </Route>
 
-        <Route path="/saved-movies">
+      <Route path="/saved-movies">
+        <nav className='header__movies-navigation'>
           <div className="header__movies-nav">
             <Link to="/movies" className="header__link header__link_place_movie">Фильмы</Link>
             <Link to="/saved-movies" className="header__link header__link_place_movie">Сохраненные фильмы</Link>
           </div>
           <Link to="/profile" className="header__button header__button_place_movie"><img className="header__btn-img" src={HeaderBtn} alt="кнопка аккаунт" /></Link>
-        </Route>
+        </nav>
+        <HeaderMenu />
+      </Route>
 
-        <Route path="/profile">
+      <Route path="/profile">
+        <nav className='header__movies-navigation'>
           <div className="header__movies-nav">
             <Link to="/movies" className="header__link header__link_place_movie">Фильмы</Link>
             <Link to="/saved-movies" className="header__link header__link_place_movie">Сохраненные фильмы</Link>
           </div>
           <Link to="/profile" className="header__button header__button_place_movie"><img className="header__btn-img" src={HeaderBtn} alt="кнопка аккаунт" /></Link>
-        </Route>
-      </nav>
+        </nav>
+        <HeaderMenu />
+      </Route>
 
-      <HeaderMenu />
-    </header>
+    </header >
   );
 };
 
