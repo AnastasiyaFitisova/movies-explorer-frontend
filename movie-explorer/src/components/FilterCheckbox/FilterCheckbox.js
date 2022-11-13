@@ -1,22 +1,16 @@
 import React from 'react';
 import './FilterCheckbox.css';
 
-function FilterCheckbox() {
-
-  const [checked, setChecked] = React.useState(false);
-
-  function handleFilter() {
-    setChecked(true)
-  }
+function FilterCheckbox({checked, onChecked}) {
 
   return (
     <div className="checkbox">
       <label className="checkbox__label">
         <input
-          className="checkbox__switch"
+          className="checkbox__switch" 
           type="checkbox"
           checked={checked}
-          onChange={handleFilter} />
+          onChange={onChecked} />
         <span className="checkbox__text">Короткометражки</span>
       </label>
     </div>

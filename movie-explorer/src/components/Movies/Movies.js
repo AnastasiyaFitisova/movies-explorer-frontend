@@ -1,19 +1,27 @@
 import React from 'react';
 import './Movies.css';
 import SearchForm from '../SearchForm/SearchForm';
-import MoviesCardList from '../MoviesCardList/MoviesCardList'
-import { movies } from '../../utils/movies';
+import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import Preloader from '../Preloader/Preloader';
 
 
-function Movies() {
+function Movies({onSubmit, cards, isLoading, isNotFound, isFailed, checked, onChecked}) {
+
   return (
       <section className="movies">
-        <SearchForm />
-        <MoviesCardList 
-        cards={movies}/>
-        <div className="movies__button-box">
-          <button className="movies__button">Еще</button>
-        </div>
+        <SearchForm 
+        onSubmit={onSubmit}
+        checked={checked}
+        onChange={onChecked}
+        />
+        {isLoading ? (
+        <Preloader/>
+        ):(
+          <MoviesCardList 
+        cards={cards}
+        isNotFound={isNotFound}
+        isFailed={isFailed}/>
+        )}
       </section>
   );
 };
