@@ -5,7 +5,7 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import './MoviesCardList.css';
 
 
-function MoviesCardList({ cards, isNotFound, isFailed }) {
+function MoviesCardList({ cards, isNotFound, isFailed, onSave, onDelete, isLiked}) {
 
   const {  cardsPerPage, addMoreCards, addCardsPerPage,} = usePagination();
   const windowWidth = useWindowSize();
@@ -26,6 +26,9 @@ function MoviesCardList({ cards, isNotFound, isFailed }) {
                   <MoviesCard
                     key={card.id}
                     card={card}
+                    onSave={onSave}
+                    onDelete={onDelete}
+                    isLiked={isLiked}
                   />
                 )
               }

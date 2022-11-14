@@ -49,6 +49,10 @@
   margin-bottom: 22px;
 }
 
+.movie-likebtn_activated {
+  background-image: url(../../images/MoviesCard/save\ active.svg);
+}
+
 .movie-likebtn:hover {
   cursor: pointer;
   opacity: 0.7;

@@ -34,6 +34,8 @@ function App() {
   const [isNotFound, setIsNotFound] = React.useState(false);
   const [isFailed, setIsFailed] = React.useState(false);
   const [checked, setChecked] = React.useState(false);
+  //сохранение фильмов на своей странице
+  const [savedMovies, setSavedMovies] = React.useState([]);
 
 
   //вход и регистрация, выход
@@ -128,24 +130,72 @@ function App() {
   }
 
   function moviesFilter(data) {
+
     const filterByInput = (i) => {
       return JSON.stringify(i.nameRU)
         .toLowerCase().includes(data);
     };
-    const filterByTime = (i) => {
-        return i.duration <= 52
-    };
+
     const moviesArray = JSON.parse(localStorage.getItem('moviescards')).filter(filterByInput)
+
     setMovies(moviesArray);
     localStorage.setItem('filterdcards', JSON.stringify(moviesArray));
     localStorage.setItem('searchValue', data);
-   
+
     if (moviesArray.length === 0) {
       setIsNotFound(true)
     } else {
       setIsNotFound(false)
+    };
+
+    const filterByTime = (i) => {
+      return i.duration <= 52;
+    };
+
+    if (checked) {
+      const filterShort = moviesArray.filter(filterByTime);
+      setMovies(filterShort);
+      if (filterShort.length === 0) {
+        setIsNotFound(true)
+      } else {
+        setIsNotFound(false)
+      };
     }
   }
+
+  //сохранение фильмов
+  function handleLikeandSave(data) {
+    api.putLikeandSave(data)
+    .then((res) => {
+      setSavedMovies([res, ...savedMovies])
+    })
+  };
+
+  const isLiked = (data) => {
+    return savedMovies.some(i => i.movieId === data.id && i.owner === currentUser._id)
+  }
+
+  function handleMoviesDelete(data) {
+    const card = savedMovies.find(i => i.movieId === (data.id || data.movieId) && i.owner === currentUser._id)
+    if (!card) return
+    api.disLikeAndDelete(card._id)
+      .then(() => {
+        setSavedMovies(savedMovies.filter(c => c._id !== card._id))
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  };
+
+  React.useEffect(() => {
+      api.addSavedCardsOnPage()
+        .then((res) => {
+          setSavedMovies(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+  }, [loggedIn, history]);
 
   return (
     <div className="page">
@@ -202,13 +252,18 @@ function App() {
               isNotFound={isNotFound}
               isFailed={isFailed}
               checked={checked}
-              onChange={handleChecked}
+              onChecked={handleChecked}
+              savedMovies={savedMovies}
+              onSave={handleLikeandSave}
+              onDelete={handleMoviesDelete}
+              isLiked={isLiked}
             />
 
             <ProtectedRoute
               path="/saved-movies"
               loggedIn={loggedIn}
               component={SavedMovies}
+           
             />
 
             <Route path="*">

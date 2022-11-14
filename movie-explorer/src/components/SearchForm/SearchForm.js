@@ -32,7 +32,7 @@ function SearchForm({onSubmit, checked, onChecked}) {
         </form>
         <FilterCheckbox 
         checked={checked}
-        onChange={onChecked}/>
+        onChecked={onChecked}/>
       </div>
   );
 };
