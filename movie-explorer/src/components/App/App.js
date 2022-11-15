@@ -36,6 +36,7 @@ function App() {
   const [checked, setChecked] = React.useState(false);
   //сохранение фильмов на своей странице
   const [savedMovies, setSavedMovies] = React.useState([]);
+  const [allSavedMovies, setAllSavedMovies] = React.useState(savedMovies)
 
 
   //вход и регистрация, выход
@@ -195,7 +196,7 @@ function App() {
         .catch((err) => {
           console.log(err);
         })
-  }, [loggedIn, history]);
+  }, []);
 
   return (
     <div className="page">
@@ -253,7 +254,6 @@ function App() {
               isFailed={isFailed}
               checked={checked}
               onChecked={handleChecked}
-              savedMovies={savedMovies}
               onSave={handleLikeandSave}
               onDelete={handleMoviesDelete}
               isLiked={isLiked}
@@ -263,7 +263,10 @@ function App() {
               path="/saved-movies"
               loggedIn={loggedIn}
               component={SavedMovies}
-           
+              cards={allSavedMovies}
+              isLiked={isLiked}
+              onDelete={handleMoviesDelete}
+              
             />
 
             <Route path="*">

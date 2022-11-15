@@ -4,12 +4,26 @@ import { Route } from 'react-router-dom';
 
 function MoviesCard({ card, onSave, onDelete, isLiked }) {
 
+  const data = {
+      country: card.country,
+      director: card.director,
+      duration: card.duration,
+      year: card.year,
+      description: card.description,
+      image: `https://api.nomoreparties.co/${card.image.url}`,
+      trailerLink: card.trailerLink,
+      nameRU: card.nameRU,
+      nameEN: card.nameEN,
+      thumbnail: `https://api.nomoreparties.co/${card.image.formats.thumbnail.url}`,
+      movieId: card.id,
+    };
+
   function handleLikeandSave()  {
-    onSave(card)
+    onSave(data)
   };
 
   function handleDelete() {
-    onDelete(card)
+    onDelete(data)
   };
   
   return (
@@ -23,7 +37,7 @@ function MoviesCard({ card, onSave, onDelete, isLiked }) {
           :(<button className="movie-likebtn" type="button" onClick={handleLikeandSave}></button>)}
         </Route>
         <Route path="/saved-movies">
-          <button className="movie-delbtn" type="button"></button>
+          <button className="movie-delbtn" type="button" onClick={handleDelete}></button>
         </Route>
       </div>
       <a href={card.trailerLink}
