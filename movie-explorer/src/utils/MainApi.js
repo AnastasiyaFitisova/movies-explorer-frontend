@@ -39,30 +39,27 @@ class Api {
   };
 
   putLikeandSave(data) {
-    const body = {
-      country: data.country,
-      director: data.director,
-      duration: data.duration,
-      year: data.year,
-      description: data.description,
-      image: data.image,
-      trailerLink: data.trailerLink,
-      thumbnail: data.thumbnail,
-      owner: data.owner,
-      movieId: data.movieId,
-      nameRU: data.nameRU,
-      nameEN: data.nameEN,
-    };
     return fetch(`${this._url}/movies`, {
       method: 'POST',
       credentials: 'include',
       headers: this._headers,
-      body: JSON.stringify(body)
+      body: JSON.stringify({ 
+        country: data.country,
+        director: data.director,
+        duration: data.duration,
+        year: data.year,
+        description: data.description,
+        image: `https://api.nomoreparties.co/${data.image.url}`,
+        trailerLink: data.trailerLink,
+        thumbnail: `https://api.nomoreparties.co/${data.image.formats.thumbnail.url}`,
+        movieId: data.id,
+        nameRU: data.nameRU,
+        nameEN: data.nameEN,})
     }).then(this._checkResult);
   }
 
-  disLikeAndDelete(movieId) {
-    return fetch(`${this._url}/movies/${movieId}`, {
+  disLikeAndDelete(id) {
+    return fetch(`${this._url}/movies/${id}`, {
       method: 'DELETE',
       credentials: 'include',
       headers: this._headers,

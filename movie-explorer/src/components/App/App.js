@@ -36,8 +36,6 @@ function App() {
   const [checked, setChecked] = React.useState(false);
   //сохранение фильмов на своей странице
   const [savedMovies, setSavedMovies] = React.useState([]);
-  const [allSavedMovies, setAllSavedMovies] = React.useState(savedMovies)
-
 
   //вход и регистрация, выход
   const onRegister = (data) => {
@@ -165,11 +163,12 @@ function App() {
   }
 
   //сохранение фильмов
+
   function handleLikeandSave(data) {
     api.putLikeandSave(data)
-    .then((res) => {
-      setSavedMovies([res, ...savedMovies])
-    })
+      .then((res) => {
+        setSavedMovies([res, ...savedMovies])
+      })
   };
 
   const isLiked = (data) => {
@@ -189,14 +188,15 @@ function App() {
   };
 
   React.useEffect(() => {
-      api.addSavedCardsOnPage()
-        .then((res) => {
-          setSavedMovies(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        })
+    api.addSavedCardsOnPage()
+      .then((res) => {
+        setSavedMovies(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }, []);
+
 
   return (
     <div className="page">
@@ -263,10 +263,10 @@ function App() {
               path="/saved-movies"
               loggedIn={loggedIn}
               component={SavedMovies}
-              cards={allSavedMovies}
+              cards={savedMovies}
               isLiked={isLiked}
               onDelete={handleMoviesDelete}
-              
+
             />
 
             <Route path="*">

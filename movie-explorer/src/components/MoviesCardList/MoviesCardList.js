@@ -45,7 +45,6 @@ function MoviesCardList({ cards, isNotFound, isFailed, onSave, onDelete, isLiked
                   <MoviesCard
                     key={card.movieId}
                     card={card}
-                    onSave={onSave}
                     onDelete={onDelete}
                     isLiked={isLiked}
                   />

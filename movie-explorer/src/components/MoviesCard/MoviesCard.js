@@ -1,29 +1,19 @@
 import React from 'react';
+import { useLocation } from "react-router-dom";
 import './MoviesCard.css';
 import { Route } from 'react-router-dom';
 
 function MoviesCard({ card, onSave, onDelete, isLiked }) {
 
-  const data = {
-      country: card.country,
-      director: card.director,
-      duration: card.duration,
-      year: card.year,
-      description: card.description,
-      image: `https://api.nomoreparties.co/${card.image.url}`,
-      trailerLink: card.trailerLink,
-      nameRU: card.nameRU,
-      nameEN: card.nameEN,
-      thumbnail: `https://api.nomoreparties.co/${card.image.formats.thumbnail.url}`,
-      movieId: card.id,
-    };
+  const location = useLocation();
+  const moviesPage = location.pathname === "/movies"
 
   function handleLikeandSave()  {
-    onSave(data)
+    onSave(card)
   };
 
   function handleDelete() {
-    onDelete(data)
+    onDelete(card)
   };
   
   return (
@@ -45,7 +35,7 @@ function MoviesCard({ card, onSave, onDelete, isLiked }) {
         rel="noreferrer"
         style={{ textDecoration: 'none' }}>
           <img className="movie-img"
-          src={`https://api.nomoreparties.co/${card.image.url}`}
+          src={moviesPage? `https://api.nomoreparties.co/${card.image.url}` : card.image}
           alt={card.nameRU} />
       </a>
     </li>

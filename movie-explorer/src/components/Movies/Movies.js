@@ -5,7 +5,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
 
 
-function Movies({onSubmit, cards, isLoading, isNotFound, isFailed, checked, onChecked, onSave, onDelete, isLiked}) {
+function Movies({onSubmit, cards, isLoading, isNotFound, isFailed, checked, onChecked, onSave, onDelete, isLiked, savedMovies}) {
 
   return (
       <section className="movies">

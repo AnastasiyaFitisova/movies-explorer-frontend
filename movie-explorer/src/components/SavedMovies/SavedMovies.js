@@ -5,7 +5,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList'
 
 
 
-function SavedMovies(cards, isLiked, onDelete) {
+function SavedMovies({cards, isLiked, onDelete}) {
   return (
       <section className="saved-movies">
         <SearchForm />

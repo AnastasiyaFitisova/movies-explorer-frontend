@@ -23,7 +23,6 @@ function Register({onRegister}) {
   });
 
   const onSubmit = (data) => {
-    console.info(data);
     onRegister(data)
   };
 
