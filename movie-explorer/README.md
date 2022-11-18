@@ -3,7 +3,7 @@
 # Описание проекта
 Movies Explorer - сайт, позволяющий зарегистрированным пользователям осуществлять поиск по базе документальных фильмов, понравившиеся фильмы можно отметить лайком, что позволит сохранить их к себе на страницу.
 
-# Функциональност:
+# Функциональность:
 Регистрация и логин пользователя;
 Редактирование профиля;
 Поиск фильмов по ключевым словам;
@@ -25,4 +25,4 @@ Create React App;
 # Ссылка на макет https://disk.yandex.ru/d/bRzUdTx1xBnuyw
 # Ссылка на backend https://api.afitis.nomoredomains.icu
 # Ccылка на frontend https://afitis.nomoredomains.icu
-# Ссылка на pull request
+# Ссылка на pull request https://github.com/AnastasiyaFitisova/movies-explorer-frontend/pull/2#issue-1455388813
