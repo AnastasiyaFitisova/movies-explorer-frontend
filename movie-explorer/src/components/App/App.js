@@ -34,8 +34,9 @@ function App() {
   const [isNotFound, setIsNotFound] = React.useState(false);
   const [isFailed, setIsFailed] = React.useState(false);
   const [checked, setChecked] = React.useState(false);
-  //сохранение фильмов на своей странице
+  //сохранение и поиск фильмов на своей странице
   const [savedMovies, setSavedMovies] = React.useState([]);
+  const [checkedSaved, setCheckedSaved] = React.useState(false);
 
   //вход и регистрация, выход
   const onRegister = (data) => {
@@ -72,6 +73,7 @@ function App() {
       .then(() => {
         setLoggedIn(false);
         history.push('/');
+        localStorage.clear();
       })
       .catch((err) => {
         console.log(err);
@@ -148,7 +150,7 @@ function App() {
     };
 
     const filterByTime = (i) => {
-      return i.duration <= 52;
+      return i.duration <= 40;
     };
 
     if (checked) {
@@ -163,7 +165,6 @@ function App() {
   }
 
   //сохранение фильмов
-
   function handleLikeandSave(data) {
     api.putLikeandSave(data)
       .then((res) => {
@@ -196,6 +197,45 @@ function App() {
         console.log(err);
       })
   }, []);
+
+  //поиск и фильтр фильмов на своей странице
+  function handleSavedFilmSearch(data) {
+
+    const filterByInputSaved = (i) => {
+      return JSON.stringify(i.nameRU)
+        .toLowerCase().includes(data);
+    };
+
+    const savedMoviesArray = savedMovies.filter(filterByInputSaved)
+
+    setSavedMovies(savedMoviesArray);
+    localStorage.setItem('filterdSavedcards', JSON.stringify(savedMoviesArray));
+    localStorage.setItem('searchValueSaved', data);
+
+    if (savedMoviesArray.length === 0) {
+      setIsNotFound(true)
+    } else {
+      setIsNotFound(false)
+    };
+
+    const filterByTime = (i) => {
+      return i.duration <= 40;
+    };
+
+    if (checkedSaved) {
+      const filterShortSaved = savedMoviesArray.filter(filterByTime);
+      setSavedMovies(filterShortSaved);
+      if (filterShortSaved.length === 0) {
+        setIsNotFound(true)
+      } else {
+        setIsNotFound(false)
+      };
+    }
+  }
+  
+  function handleSavedChecked() {
+      setCheckedSaved(!checkedSaved);
+  }
 
 
   return (
@@ -266,12 +306,14 @@ function App() {
               cards={savedMovies}
               isLiked={isLiked}
               onDelete={handleMoviesDelete}
+              isLoading={isloading}
+              onSubmit={handleSavedFilmSearch}
+              checked={checkedSaved}
+              onChecked={handleSavedChecked}
+              isNotFound={isNotFound}
+              isFailed={isFailed}
 
             />
-
-            <Route path="*">
-              <Error />
-            </Route>
 
             <Route>
               {loggedIn ? (
@@ -279,6 +321,10 @@ function App() {
               ) : (
                 <Redirect to="/signin" />
               )}
+            </Route>
+
+            <Route path="*">
+              <Error />
             </Route>
 
           </Switch>

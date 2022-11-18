@@ -57,7 +57,6 @@ class Api {
         nameEN: data.nameEN,})
     }).then(this._checkResult);
   }
-
   disLikeAndDelete(id) {
     return fetch(`${this._url}/movies/${id}`, {
       method: 'DELETE',
@@ -65,7 +64,6 @@ class Api {
       headers: this._headers,
     }).then(this._checkResult);
   }
-
   addSavedCardsOnPage() {
     return fetch(`${this._url}/movies`, {
       method: 'GET',
@@ -76,6 +74,6 @@ class Api {
 
 };
 
-const api = new Api('http://localhost:4000');
+const api = new Api('https://api.afitis.nomoredomains.icu');
 
 export default api;
