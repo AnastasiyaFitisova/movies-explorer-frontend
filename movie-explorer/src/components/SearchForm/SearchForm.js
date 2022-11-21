@@ -41,7 +41,7 @@ function SearchForm({onSubmit, checked, onChecked}) {
             type="text"
             placeholder="Фильм"
             name="film"
-            value={moviesPage? searchValue : searchValueSaved}
+            value={moviesPage? (searchValue || '') : (searchValueSaved || '')}
             onChange={moviesPage? handleSearchChange : handleSearchChangeSaved}
           />
           <button className="search-box__button" type="submit"></button>

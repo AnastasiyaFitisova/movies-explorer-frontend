@@ -124,6 +124,7 @@ function App() {
         setIsFailed(true)
       })
       .finally(() => setIsLoading(false));
+
   };
 
   function handleChecked() {
@@ -132,35 +133,38 @@ function App() {
 
   function moviesFilter(data) {
 
-    const filterByInput = (i) => {
-      return JSON.stringify(i.nameRU)
-        .toLowerCase().includes(data);
-    };
+    const cardsLocalStorage = JSON.parse(localStorage.getItem('moviescards'));
 
-    const moviesArray = JSON.parse(localStorage.getItem('moviescards')).filter(filterByInput)
+    if (cardsLocalStorage) {
 
-    setMovies(moviesArray);
-    localStorage.setItem('filterdcards', JSON.stringify(moviesArray));
-    localStorage.setItem('searchValue', data);
+      const filterByInput = (i) => {
+        return JSON.stringify(i.nameRU)
+          .toLowerCase().includes(data);
+      };
+      const moviesArray = cardsLocalStorage.filter(filterByInput);
+      setMovies(moviesArray);
+      localStorage.setItem('filterdcards', JSON.stringify(moviesArray));
+      localStorage.setItem('searchValue', data);
 
-    if (moviesArray.length === 0) {
-      setIsNotFound(true)
-    } else {
-      setIsNotFound(false)
-    };
-
-    const filterByTime = (i) => {
-      return i.duration <= 40;
-    };
-
-    if (checked) {
-      const filterShort = moviesArray.filter(filterByTime);
-      setMovies(filterShort);
-      if (filterShort.length === 0) {
+      if (moviesArray.length === 0) {
         setIsNotFound(true)
       } else {
         setIsNotFound(false)
       };
+
+      const filterByTime = (i) => {
+        return i.duration <= 40;
+      };
+
+      if (checked) {
+        const filterShort = moviesArray.filter(filterByTime);
+        setMovies(filterShort);
+        if (filterShort.length === 0) {
+          setIsNotFound(true)
+        } else {
+          setIsNotFound(false)
+        };
+      }
     }
   }
 
@@ -232,9 +236,9 @@ function App() {
       };
     }
   }
-  
+
   function handleSavedChecked() {
-      setCheckedSaved(!checkedSaved);
+    setCheckedSaved(!checkedSaved);
   }
 
 

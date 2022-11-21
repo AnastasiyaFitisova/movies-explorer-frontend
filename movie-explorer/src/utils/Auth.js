@@ -1,4 +1,4 @@
-export const url = "https://api.afitis.nomoredomains.icu";
+export const url = 'https://api.afitis.nomoredomains.icu';
 
 const checkResult = (res) => {
   if (res.ok) {
