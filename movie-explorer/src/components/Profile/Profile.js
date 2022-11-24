@@ -11,7 +11,7 @@ function Profile({ onCorrect, OnCorrectIsOk, OnCorrectIsNok, onLogout }) {
   const [isformValid, setIsFormValid] = React.useState(false);
 
   const SignupSchema = yup.object().shape({
-    name: yup.string().required().matches(/^[а-яёa-z -]+$/i, 'Please, use only Latin, Cyrillic, space or hyphen'),
+    name: yup.string().required().matches(/[A-Za-zА-Яа-я-\s]+$/, 'Please, use only Latin, Cyrillic, space or hyphen'),
     email: yup.string().email().required(),
   });
 

@@ -8,7 +8,7 @@ import './Register.css';
 function Register({onRegister}) {
 
   const SignupSchema = yup.object().shape({
-    name: yup.string().required().matches(/[^a-zа-я ]+$/ , 'Please, use only Latin, Cyrillic, space or hyphen'),
+    name: yup.string().required().matches(/[A-Za-zА-Яа-я-\s]+$/, 'Please, use only Latin, Cyrillic, space or hyphen'),
     email: yup.string().email().required(),
     password: yup.string().required(),
   });
