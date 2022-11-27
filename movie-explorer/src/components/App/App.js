@@ -74,6 +74,10 @@ function App() {
         setLoggedIn(false);
         history.push('/');
         localStorage.clear();
+        setMovies([]);
+        setChecked(false);
+        setSavedMovies([]);
+        setCheckedSaved(false);
       })
       .catch((err) => {
         console.log(err);
@@ -193,14 +197,17 @@ function App() {
   };
 
   React.useEffect(() => {
-    api.addSavedCardsOnPage()
+    if(loggedIn) {
+      api.addSavedCardsOnPage()
       .then((res) => {
         setSavedMovies(res);
       })
       .catch((err) => {
         console.log(err);
       })
-  }, []);
+    }
+    
+  }, [loggedIn]);
 
   //поиск и фильтр фильмов на своей странице
   function handleSavedFilmSearch(data) {
@@ -213,8 +220,6 @@ function App() {
     const savedMoviesArray = savedMovies.filter(filterByInputSaved)
 
     setSavedMovies(savedMoviesArray);
-    localStorage.setItem('filterdSavedcards', JSON.stringify(savedMoviesArray));
-    localStorage.setItem('searchValueSaved', data);
 
     if (savedMoviesArray.length === 0) {
       setIsNotFound(true)
@@ -243,8 +248,9 @@ function App() {
 
 
   return (
-    <div className="page">
-      <CurrentUserContext.Provider value={currentUser}>
+    <CurrentUserContext.Provider value={currentUser}>
+
+      <div className="page">
 
         {location.pathname === "/" || location.pathname === "/movies" || location.pathname === "/saved-movies" || location.pathname === "/profile" ?
           <Header /> : ''}
@@ -316,17 +322,8 @@ function App() {
               onChecked={handleSavedChecked}
               isNotFound={isNotFound}
               isFailed={isFailed}
-
             />
-
-            <Route>
-              {loggedIn ? (
-                <Redirect to="/movies" />
-              ) : (
-                <Redirect to="/signin" />
-              )}
-            </Route>
-
+            
             <Route path="*">
               <Error />
             </Route>
@@ -338,8 +335,10 @@ function App() {
         {location.pathname === "/" || location.pathname === "/movies" || location.pathname === "/saved-movies" ?
           <Footer /> : ''}
 
-      </CurrentUserContext.Provider>
-    </div>
+
+      </div>
+
+    </CurrentUserContext.Provider>
   );
 }
 
