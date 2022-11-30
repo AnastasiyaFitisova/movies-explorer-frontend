@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import { useLocation, useHistory } from "react-router-dom";
+import { useLocation, useHistory} from "react-router-dom";
 import './App.css';
 import Main from '../Main/Main';
 import Header from '../Header/Header';
@@ -36,6 +36,7 @@ function App() {
   const [checked, setChecked] = React.useState(false);
   //сохранение и поиск фильмов на своей странице
   const [savedMovies, setSavedMovies] = React.useState([]);
+  const [savedMoviesFilter, setSavedMoviesFilter] = React.useState([]);
   const [checkedSaved, setCheckedSaved] = React.useState(false);
 
   //вход и регистрация, выход
@@ -75,6 +76,7 @@ function App() {
         history.push('/');
         localStorage.clear();
         setMovies([]);
+        setSavedMoviesFilter([])
         setChecked(false);
         setSavedMovies([]);
         setCheckedSaved(false);
@@ -92,6 +94,14 @@ function App() {
         setCurrentUser(res);
       })
       .catch((err) => {
+        if (err === 'Ошибка: 401') {
+          setLoggedIn(false);
+          setMovies([]);
+          setSavedMoviesFilter([])
+          setSavedMovies([]);
+          history.push('/');
+          localStorage.clear();
+        }
         console.log(err);
       })
   }, [loggedIn, history]);
@@ -112,8 +122,8 @@ function App() {
 
   //поиск фильмов
   React.useEffect(() => {
-    const savedInput = localStorage.getItem('searchValue');
-    moviesFilter(savedInput);
+    const checkboxStatus = localStorage.getItem('checkboxStatus');
+    setChecked(JSON.parse(checkboxStatus));
   }, []);
 
   function handleFilmSearch(data) {
@@ -133,9 +143,10 @@ function App() {
 
   function handleChecked() {
     setChecked(!checked);
+    localStorage.setItem('checkboxStatus', !checked);
   }
 
-  function moviesFilter(data) {
+  const moviesFilter = React.useCallback((data) => {
 
     const cardsLocalStorage = JSON.parse(localStorage.getItem('moviescards'));
 
@@ -170,7 +181,13 @@ function App() {
         };
       }
     }
-  }
+  }, [checked]
+  );
+
+  React.useEffect(() => {
+    const savedInput = localStorage.getItem('searchValue');
+    moviesFilter(savedInput);
+  }, [moviesFilter, checked]);
 
   //сохранение фильмов
   function handleLikeandSave(data) {
@@ -197,17 +214,24 @@ function App() {
   };
 
   React.useEffect(() => {
-    if(loggedIn) {
+    if (loggedIn) {
       api.addSavedCardsOnPage()
-      .then((res) => {
-        setSavedMovies(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+        .then((res) => {
+          setSavedMovies(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
     }
-    
+
   }, [loggedIn]);
+
+  React.useEffect(() => {
+    if (location.pathname !== "/saved-movies") {
+      setSavedMoviesFilter(savedMovies);
+      setIsNotFound(false);
+    }
+  }, [location.pathname, savedMovies]);
 
   //поиск и фильтр фильмов на своей странице
   function handleSavedFilmSearch(data) {
@@ -219,7 +243,7 @@ function App() {
 
     const savedMoviesArray = savedMovies.filter(filterByInputSaved)
 
-    setSavedMovies(savedMoviesArray);
+    setSavedMoviesFilter(savedMoviesArray);
 
     if (savedMoviesArray.length === 0) {
       setIsNotFound(true)
@@ -232,8 +256,8 @@ function App() {
     };
 
     if (checkedSaved) {
-      const filterShortSaved = savedMoviesArray.filter(filterByTime);
-      setSavedMovies(filterShortSaved);
+      const filterShortSaved = savedMovies.filter(filterByTime);
+      setSavedMoviesFilter(filterShortSaved);
       if (filterShortSaved.length === 0) {
         setIsNotFound(true)
       } else {
@@ -246,14 +270,13 @@ function App() {
     setCheckedSaved(!checkedSaved);
   }
 
-
   return (
     <CurrentUserContext.Provider value={currentUser}>
 
       <div className="page">
 
         {location.pathname === "/" || location.pathname === "/movies" || location.pathname === "/saved-movies" || location.pathname === "/profile" ?
-          <Header /> : ''}
+          <Header loggedIn={loggedIn}/> : ''}
 
         <main className="main">
 
@@ -313,7 +336,7 @@ function App() {
               path="/saved-movies"
               loggedIn={loggedIn}
               component={SavedMovies}
-              cards={savedMovies}
+              cards={savedMoviesFilter}
               isLiked={isLiked}
               onDelete={handleMoviesDelete}
               isLoading={isloading}
@@ -323,7 +346,7 @@ function App() {
               isNotFound={isNotFound}
               isFailed={isFailed}
             />
-            
+
             <Route path="*">
               <Error />
             </Route>

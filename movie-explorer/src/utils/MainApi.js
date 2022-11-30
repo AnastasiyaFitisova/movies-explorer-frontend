@@ -74,6 +74,6 @@ class Api {
 
 };
 
-const api = new Api('http://localhost:4000');
+const api = new Api('https://api.afitis.nomoredomains.icu');
 
 export default api;

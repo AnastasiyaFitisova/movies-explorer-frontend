@@ -1,4 +1,4 @@
-export const url = 'http://localhost:4000';
+export const url = 'https://api.afitis.nomoredomains.icu';
 
 const checkResult = (res) => {
   if (res.ok) {
