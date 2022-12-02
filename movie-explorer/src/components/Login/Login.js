@@ -6,7 +6,11 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
-function Login({ onLogin }) {
+function Login({ onLogin, isSuccess, updateAuthStatus}) {
+
+  React.useEffect(() => {
+    updateAuthStatus();
+  }, []);
 
   const SignupSchema = yup.object().shape({
     email: yup.string().email().required(),
@@ -51,10 +55,15 @@ function Login({ onLogin }) {
           <input className="auth__input"
             type="password"
             placeholder="введите пароль"
+            autocomplete="off"
             required
             {...register("password")} />
           {errors.password && <p style={{ color: 'red', width: '100%' }}>{errors.password.message}</p>}
         </label>
+
+        {!isSuccess  ? (
+          <p style={{ color: 'red', width: '100%' }}>Ошибка входа, повторите попытку</p>
+        ) : ""}
 
         <button className="auth__button"
           type="submit"

@@ -1,4 +1,6 @@
-export const url = 'https://api.afitis.nomoredomains.icu';
+//import {URL} from '../utils/constants';
+
+const URL = 'http://localhost:4000';
 
 const checkResult = (res) => {
   if (res.ok) {
@@ -14,7 +16,7 @@ const headers = {
 };
 
 export const register = ({ name, email, password }) => {
-  return fetch(`${url}/signup`, {
+  return fetch(`${URL}/signup`, {
     method: 'POST',
     credentials: 'include',
     headers,
@@ -26,7 +28,7 @@ export const register = ({ name, email, password }) => {
 };
 
 export const authorize = ({ email, password }) => {
-  return fetch(`${url}/signin`, {
+  return fetch(`${URL}/signin`, {
     method: 'POST',
     headers,
     credentials: 'include',
@@ -38,7 +40,7 @@ export const authorize = ({ email, password }) => {
 };
 
 export const logout = () => {
-  return fetch(`${url}/logout`, {
+  return fetch(`${URL}/logout`, {
     method: 'GET',
     headers,
     credentials: 'include',

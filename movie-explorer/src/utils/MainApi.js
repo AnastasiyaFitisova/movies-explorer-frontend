@@ -1,3 +1,7 @@
+//import {URL} from '../utils/constants'
+
+const URL = 'http://localhost:4000';
+
 class Api {
   constructor(url) {
     this._url = url;
@@ -74,6 +78,6 @@ class Api {
 
 };
 
-const api = new Api('https://api.afitis.nomoredomains.icu');
+const api = new Api(URL);
 
 export default api;

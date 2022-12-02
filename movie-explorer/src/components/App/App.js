@@ -16,6 +16,9 @@ import * as auth from '../../utils/Auth';
 import { CurrentUserContext } from '../../context/CurrentUserContext'
 import api from '../../utils/MainApi';
 import moviesApi from '../../utils/MoviesApi';
+import {
+  SHORT_FILM_DURATION
+} from '../../utils/constants';
 
 function App() {
 
@@ -23,7 +26,7 @@ function App() {
   const history = useHistory();
   //регистрация, вход
   const [loggedIn, setLoggedIn] = React.useState(false);
-  const [isSuccess, setIsSuccess] = React.useState(null);
+  const [isSuccess, setIsSuccess] = React.useState(true);
   //информация о пользователе
   const [currentUser, setCurrentUser] = React.useState(null);
   const [isUserInfoChangeOk, setIsUserInfoChangeOk] = React.useState(false);
@@ -47,7 +50,6 @@ function App() {
           email: data.email,
           password: data.password,
         });
-        setIsSuccess(true);
         history.push("/movies");
       })
       .catch((err) => {
@@ -86,12 +88,20 @@ function App() {
       })
   };
 
+  const updateAuthStatus = () => {
+    setIsSuccess(true);
+  };
+
   //информация о пользователе
   React.useEffect(() => {
     api.getUserInfo()
       .then((res) => {
-        setLoggedIn(true);
-        setCurrentUser(res);
+        if(!res) {
+          onLogout();
+        } else {
+          setLoggedIn(true);
+          setCurrentUser(res);
+        }
       })
       .catch((err) => {
         if (err === 'Ошибка: 401') {
@@ -168,7 +178,7 @@ function App() {
       };
 
       const filterByTime = (i) => {
-        return i.duration <= 40;
+        return i.duration <= SHORT_FILM_DURATION;
       };
 
       if (checked) {
@@ -252,7 +262,7 @@ function App() {
     };
 
     const filterByTime = (i) => {
-      return i.duration <= 40;
+      return i.duration <= SHORT_FILM_DURATION;
     };
 
     if (checkedSaved) {
@@ -292,6 +302,8 @@ function App() {
               ) : (
                 <Register
                   onRegister={onRegister}
+                  isSuccess={isSuccess}
+                  updateAuthStatus={updateAuthStatus}
                 />
               )}
             </Route>
@@ -302,6 +314,8 @@ function App() {
               ) : (
                 <Login
                   onLogin={onLogin}
+                  isSuccess={isSuccess}
+                  updateAuthStatus={updateAuthStatus}
                 />
               )}
             </Route>

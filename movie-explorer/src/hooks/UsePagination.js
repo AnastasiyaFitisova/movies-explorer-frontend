@@ -1,29 +1,28 @@
 import { useState } from "react";
 import  useWindowSize  from "./UseResize"
+import {
+  MOBILE_WIDTH,
+  CARDS_DESCTOP,
+  CARDS_MOBILE,
+  MORE_CARDS_DESCTOP,
+  MORE_CARDS_MOBILE,
+} from '../utils/constants'
 
 function UsePagination() {
 
   const windowWidth = useWindowSize()
 
-  const mobileWidth = 320;
-
-  const cardsDesctop = 7;
-  const cardsMobile = 5;
-
-  const moreCardsDesctop = 7;
-  const moreCardsMobile = 5;
-
   const [cardsPerPage, setCardsPerPage] = useState(0);
   const [addCards, setAddCards] = useState(0);
 
   function addCardsPerPage() {
-    if (windowWidth.width > mobileWidth) {
-      setCardsPerPage(cardsDesctop);
-      setAddCards(moreCardsDesctop);
+    if (windowWidth.width > MOBILE_WIDTH) {
+      setCardsPerPage(CARDS_DESCTOP);
+      setAddCards(MORE_CARDS_DESCTOP);
     } else if (
-      windowWidth.width === mobileWidth) {
-      setCardsPerPage(cardsMobile);
-      setAddCards(moreCardsMobile);
+      windowWidth.width === MOBILE_WIDTH) {
+      setCardsPerPage(CARDS_MOBILE);
+      setAddCards(MORE_CARDS_MOBILE);
     } 
   };
 
@@ -39,7 +38,5 @@ function UsePagination() {
   };
 
 };
-
-
 
 export default UsePagination;

@@ -5,7 +5,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import './Register.css';
 
-function Register({onRegister}) {
+function Register({onRegister, isSuccess, updateAuthStatus}) {
+
+  React.useEffect(() => {
+    updateAuthStatus();
+  }, []);
 
   const SignupSchema = yup.object().shape({
     name: yup.string().required().matches(/[A-Za-zА-Яа-я-\s]+$/, 'Please, use only Latin, Cyrillic, space or hyphen'),
@@ -60,10 +64,15 @@ function Register({onRegister}) {
           <input className="auth__input"
             type="password"
             placeholder="введите пароль"
+            autocomplete="off"
             required
             {...register("password")} />
           {errors.password && <p style={{ color: 'red', width: '100%' }}>{errors.password.message}</p>}
         </label>
+
+        {!isSuccess  ? (
+          <p style={{ color: 'red', width: '100%' }}>Ошибка регистрации, повторите попытку</p>
+        ) : ""}
 
         <button className="auth__button"
           type="submit"
