@@ -1,6 +1,4 @@
-//import {URL} from '../utils/constants';
-
-const URL = 'http://localhost:4000';
+import {URL} from '../utils/constants';
 
 const checkResult = (res) => {
   if (res.ok) {
