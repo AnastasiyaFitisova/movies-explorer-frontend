@@ -1,0 +1,145 @@
+.movie-card {
+  background-color: #F9F9F9;
+  max-width: 1140px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 70px;
+}
+
+.movie-information {
+  display: flex;
+  flex-direction: column;
+  margin-left: 22px;
+  max-width: 1140px;
+  width: 100%;
+}
+
+.movie-name {
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  max-width: 400px;
+  width: 100%;
+  margin-top: 22px;
+  margin-bottom: 13px;
+  padding: 0;
+}
+
+.movie-duration {
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  color: #A0A0A0;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 30px;
+}
+
+.movie-likebtn {
+  border: none;
+  background-image: url(../../images/MoviesCard/save.svg);
+  background-color: transparent;
+  width: 14px;
+  height: 12px;
+  margin-bottom: 22px;
+}
+
+.movie-likebtn_activated {
+  background-image: url(../../images/MoviesCard/save\ active.svg);
+}
+
+.movie-likebtn:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.movie-delbtn {
+  border: none;
+  background-image: url(../../images/MoviesCard/del.svg);
+  width: 14px;
+  height: 12px;
+  margin-bottom: 22px;
+}
+
+.movie-delbtn:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.movie-img{
+  width: 220px;
+  height: 122px;
+  margin-top: 6px;
+  margin-right: 6px;
+}
+
+@media screen  and (max-width: 1279px) {
+  .movie-card {
+    max-width: 980px;
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .movie-card {
+    max-width: 708px;
+    margin-bottom: 60px;
+  }
+  .movie-img{
+    width: 220px;
+    height: 122px;
+    margin-top: 6px;
+    margin-right: 6px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .movie-card {
+    max-width: 300px;
+    height: 232px;
+    flex-direction: column-reverse;
+    margin-bottom: 20px;
+  }
+  .movie-information {
+    max-width: 272px;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .movie-name {
+    font-size: 12px;
+    line-height: 15px;
+    max-width: 228px;
+    margin-top: 0px;
+    margin-bottom: 8px;
+    margin-right: 20px;
+    padding: 0;
+    order: 1;
+    overflow: hidden;
+    padding: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .movie-duration {
+    margin-bottom: 14px;
+    max-width: 228px;
+    order: 3;
+  }
+  .movie-likebtn {
+    margin-bottom: 0;
+    order: 2;
+  }
+  .movie-delbtn {
+    margin-bottom: 0;
+  }
+  .movie-img{
+    width: 300px;
+    height: 168px;
+    margin-top: 0;
+    margin-right: 0;
+  }
+}
+
